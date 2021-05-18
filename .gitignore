@@ -43,3 +43,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# True supabase config
+/src/app/utils/supabaseInit.ts
