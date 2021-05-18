@@ -45,4 +45,4 @@ testem.log
 Thumbs.db
 
 # True supabase config
-/src/app/utils/supabaseInit.ts
+.src/app/utils/supabaseInit.ts
