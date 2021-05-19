@@ -53,5 +53,6 @@ export class AuthService {
     this.supabase.auth.signOut()
     this.user = this.supabase.auth.user();
     this.session = this.supabase.auth.session();
+    this.router.navigateByUrl('home');
   }
 }
