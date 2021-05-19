@@ -7,6 +7,8 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
+  
+  isMenuCollapsed = true;
 
   constructor(public authService: AuthService) { }
 

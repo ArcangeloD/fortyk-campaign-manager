@@ -3,24 +3,38 @@
   <div class="col-6 text-center" *ngIf="mode">
     <h1>Connexion</h1>
     <form [formGroup]="loginData" (ngSubmit)="login()">
-      <label for="registrationEmail" class="form-label">Adresse e-mail</label>
-      <input type="email" class="form-control" id="registrationEmail" placeholder="name@example.com" formControlName="email" />
-      <label for="registrationPassword" class="form-label">Mot de passe</label>
-      <input type="password" class="form-control" id="registrationPassword" placeholder="@Zerty123456" formControlName="passw"/>
-      <button type="submit" class="btn btn-primary mb-3 form-control">Se connecter</button>
+      <div class="form-group row">
+        <label for="registrationEmail" class="form-label">Adresse e-mail</label>
+        <input type="email" class="form-control" id="registrationEmail" placeholder="name@example.com" formControlName="email" />
+      </div>
+      <div class="form-group row">
+        <label for="registrationPassword" class="form-label">Mot de passe</label>
+        <input type="password" class="form-control" id="registrationPassword" placeholder="@Zerty123456" formControlName="passw"/>
+      </div>
+      <div class="form-group row">
+        <button type="submit" class="btn btn-primary form-control">Se connecter</button>
+      </div>
     </form>
     <button type="button" class="btn btn-link" (click)="mode=false">Pas encore de compte ? Cliquez ici!</button>
   </div>
   <div class="col-6 text-center" *ngIf="!mode">
     <h1>Inscription</h1>
     <form [formGroup]="registrationData" (ngSubmit)="register()">
-      <label for="username" class="form-label">Nom d'utilisateur</label>
-      <input type="text" class="form-control" id="username" placeholder="Pseudo" formControlName="username" />
-      <label for="registrationEmail" class="form-label">Adresse e-mail</label>
-      <input type="email" class="form-control" id="registrationEmail" placeholder="name@example.com" formControlName="email" />
-      <label for="registrationPassword" class="form-label">Mot de passe</label>
-      <input type="password" class="form-control" id="registrationPassword" placeholder="@Zerty123456" formControlName="passw"/>
-      <button type="submit" class="btn btn-primary mb-3 form-control">S'inscrire</button>
+      <div class="form-group row">
+        <label for="username" class="form-label">Nom d'utilisateur</label>
+        <input type="text" class="form-control" id="username" placeholder="Pseudo" formControlName="username" />
+      </div>
+      <div class="form-group row">
+        <label for="registrationEmail" class="form-label">Adresse e-mail</label>
+        <input type="email" class="form-control" id="registrationEmail" placeholder="name@example.com" formControlName="email" />
+      </div>
+      <div class="form-group row">
+        <label for="registrationPassword" class="form-label">Mot de passe</label>
+        <input type="password" class="form-control" id="registrationPassword" placeholder="@Zerty123456" formControlName="passw"/>
+      </div>
+      <div class="form-group row">
+        <button type="submit" class="btn btn-primary form-control">S'inscrire</button>
+      </div>
     </form>
     <button type="button" class="btn btn-link" (click)="mode=true">Déjà un compte ? Cliquez ici!</button>
   </div>
