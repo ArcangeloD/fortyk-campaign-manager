@@ -46,3 +46,6 @@ Thumbs.db
 
 # True supabase config
 src/app/utils/initSupabase.ts
+
+#batch files
+/batch
