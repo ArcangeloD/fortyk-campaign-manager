@@ -38,6 +38,6 @@ export class LoginRegisterComponent implements OnInit {
   };
   
   sendReset() {
-    this.authService.resetPassordRequest(this.resetData.value.email);
+    this.authService.resetPasswordRequest(this.resetData.value.email);
   };
 }

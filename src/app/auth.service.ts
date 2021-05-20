@@ -57,7 +57,7 @@ export class AuthService {
     }
   }
   
-  async resetPassordRequest(email: string) {
+  async resetPasswordRequest(email: string) {
     const { data, error } = await this.supabase.auth.api.resetPasswordForEmail(email);
     if (error)
     {
