@@ -57,6 +57,31 @@ export class AuthService {
     }
   }
   
+  async resetPassordRequest(email: string) {
+    const { data, error } = await this.supabase.auth.api.resetPasswordForEmail(email);
+    if (error)
+    {
+      alert(error.message);
+    }
+    else
+    {
+      console.log(data);
+      this.router.navigateByUrl('reset-mail-sent');
+    }
+  }
+  
+  async updatePassword(access_token: string, passw: string) {
+    const { error, data } = await this.supabase.auth.api.updateUser(access_token, { password : passw });
+    if (error)
+    {
+      alert(error.message);
+    }
+    else
+    {
+      this.router.navigateByUrl('home');
+    }
+  }
+  
   private updateSession(user: any, session: any) {
     this.user = user;
     this.session = session;

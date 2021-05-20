@@ -16,7 +16,10 @@ import { NotFoundComponent } from './not-found/not-found.component';
 
 import { IsLoggedGuard } from './is-logged.guard'
 import { IsNotLoggedGuard } from './is-not-logged.guard';
-import { NotAuthorizedComponent } from './not-authorized/not-authorized.component'
+import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
+import { ResetMailSentComponent } from './reset-mail-sent/reset-mail-sent.component';
+import { ForgotenPasswordSecondStepComponent } from './forgoten-password-second-step/forgoten-password-second-step.component';
+import { PasswordChangedComponent } from './password-changed/password-changed.component'
 
 //bootsrap modules
 
@@ -29,7 +32,10 @@ import { NotAuthorizedComponent } from './not-authorized/not-authorized.componen
     NavComponent,
     LoginRegisterComponent,
     NotFoundComponent,
-    NotAuthorizedComponent
+    NotAuthorizedComponent,
+    ResetMailSentComponent,
+    ForgotenPasswordSecondStepComponent,
+    PasswordChangedComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +53,9 @@ import { NotAuthorizedComponent } from './not-authorized/not-authorized.componen
       {path: 'news', component: NewsComponent},
       {path: 'login-register', component: LoginRegisterComponent,canActivate: [IsNotLoggedGuard]},
       {path: 'not-authorized', component: NotAuthorizedComponent},
+      {path: 'reset-mail-sent', component: ResetMailSentComponent},
+      {path: 'forgoten-password-second-step', component: ForgotenPasswordSecondStepComponent},
+      {path: 'pasword-changed', component: PasswordChangedComponent},
       {path: '',   redirectTo: 'home', pathMatch: 'full'},
       {path: '**', component: NotFoundComponent}
     ])

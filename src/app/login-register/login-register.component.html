@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-3"></div>
-  <div class="col-6 text-center" *ngIf="mode">
+  <div class="col-6 text-center" *ngIf="mode==1">
     <h1>Connexion</h1>
     <form [formGroup]="loginData" (ngSubmit)="login()">
       <div class="form-group row">
@@ -15,9 +15,10 @@
         <button type="submit" class="btn btn-primary form-control">Se connecter</button>
       </div>
     </form>
-    <button type="button" class="btn btn-link" (click)="mode=false">Pas encore de compte ? Cliquez ici!</button>
+    <button type="button" class="btn btn-link" (click)="mode=2">Pas encore de compte ? Cliquez ici !</button><br />
+    <button type="button" class="btn btn-link" (click)="mode=3">Mot de passe oublié ? Cliquez ici !</button>
   </div>
-  <div class="col-6 text-center" *ngIf="!mode">
+  <div class="col-6 text-center" *ngIf="mode==2">
     <h1>Inscription</h1>
     <form [formGroup]="registrationData" (ngSubmit)="register()">
       <div class="form-group row">
@@ -36,6 +37,21 @@
         <button type="submit" class="btn btn-primary form-control">S'inscrire</button>
       </div>
     </form>
-    <button type="button" class="btn btn-link" (click)="mode=true">Déjà un compte ? Cliquez ici!</button>
+    <button type="button" class="btn btn-link" (click)="mode=1">Déjà un compte ? Cliquez ici !</button><br />
+    <button type="button" class="btn btn-link" (click)="mode=3">Mot de passe oublié ? Cliquez ici !</button>
+  </div>
+  <div class="col-6 text-center" *ngIf="mode==3">
+    <h1>Mot de passe oublié</h1>
+    <form [formGroup]="resetData" (ngSubmit)="sendReset()">
+      <div class="form-group row">
+        <label for="registrationEmail" class="form-label">Adresse e-mail</label>
+        <input type="email" class="form-control" id="registrationEmail" placeholder="name@example.com" formControlName="email" />
+      </div>
+      <div class="form-group row">
+        <button type="submit" class="btn btn-primary form-control">Envoyer un mail de récupération</button>
+      </div>
+    </form>
+    <button type="button" class="btn btn-link" (click)="mode=1">Déjà un compte ? Cliquez ici !</button><br />
+    <button type="button" class="btn btn-link" (click)="mode=2">Pas encore de compte ? Cliquez ici !</button>
   </div>
 </div>

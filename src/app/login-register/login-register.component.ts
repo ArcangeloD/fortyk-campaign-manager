@@ -8,7 +8,7 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login-register.component.css']
 })
 export class LoginRegisterComponent implements OnInit {
-  mode = true;
+  mode = 1;
   
   registrationData = new FormGroup({
     username: new FormControl(''),
@@ -20,11 +20,14 @@ export class LoginRegisterComponent implements OnInit {
     email: new FormControl(''),
     passw: new FormControl('')
   });
+  
+  resetData = new FormGroup({
+    email: new FormControl('')
+  });
 
   constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   
   register() {
     this.authService.register(this.registrationData.value.email, this.registrationData.value.passw);
@@ -32,6 +35,9 @@ export class LoginRegisterComponent implements OnInit {
   
   login() {
     this.authService.login(this.loginData.value.email, this.loginData.value.passw);
-  }
-
+  };
+  
+  sendReset() {
+    this.authService.resetPassordRequest(this.resetData.value.email);
+  };
 }
