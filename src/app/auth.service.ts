@@ -26,9 +26,7 @@ export class AuthService {
     }
     else
     {
-      this.user = user;
-      this.session = session;
-      this.router.navigateByUrl('home');
+      this.updateSession(user, session);
     }
   }
   
@@ -43,16 +41,25 @@ export class AuthService {
     }
     else
     {
-      this.user = user;
-      this.session = session;
-      this.router.navigateByUrl('home');
+      this.updateSession(user, session);
     }
   }
   
   async logout() {
-    this.supabase.auth.signOut()
-    this.user = this.supabase.auth.user();
-    this.session = this.supabase.auth.session();
+    const { error } = await this.supabase.auth.signOut()
+    if (error)
+    {
+      alert(error.message);
+    }
+    else
+    {
+      this.updateSession(null, null);
+    }
+  }
+  
+  private updateSession(user: any, session: any) {
+    this.user = user;
+    this.session = session;
     this.router.navigateByUrl('home');
   }
 }
