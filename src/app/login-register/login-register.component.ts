@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Validators } from '@angular/forms';
+import { DatabaseService } from '../database.service';
 
 @Component({
   selector: 'app-login-register',
@@ -12,11 +13,6 @@ export class LoginRegisterComponent implements OnInit {
   mode = 1;
   
   registrationData = new FormGroup({
-    username: new FormControl('', 
-      [
-        Validators.required,
-        Validators.minLength(4)
-      ]),
     email: new FormControl('', [Validators.required, Validators.email]),
     passw: new FormControl('', 
       [
@@ -28,7 +24,8 @@ export class LoginRegisterComponent implements OnInit {
     passwConfirmation : new FormControl('', Validators.required)
   });
   
-  registerSubmitted = false; 
+  registerSubmitted = false;
+  userExist = false;
   
   loginData = new FormGroup({
     email: new FormControl('',[Validators.required, Validators.email]),
@@ -43,16 +40,15 @@ export class LoginRegisterComponent implements OnInit {
   
   resetSubmitted = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private db: DatabaseService) {}
 
   ngOnInit(): void {}
   
   register() {
     this.registerSubmitted = true;
-    console.log(this.registrationData.controls.username);
-    if (!(this.registrationData.controls.username.errors! || this.registrationData.controls.email.errors! || this.registrationData.controls.passw.errors! || this.registrationData.controls.passwConfirmation.errors!) && this.registrationData.controls.passw == this.registrationData.controls.passwConfirmation)
+    if (this.registrationData.valid && this.registrationData.value.passw == this.registrationData.value.passwConfirmation)
     {
-      //this.authService.register(this.registrationData.value.email, this.registrationData.value.passw);
+      this.authService.register(this.registrationData.value.email, this.registrationData.value.passw)
     }
   };
   

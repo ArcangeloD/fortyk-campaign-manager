@@ -16,6 +16,9 @@
       <li class="nav-item" *ngIf="!authService.session" routerLinkActive="active">
         <a class="btn btn-outline-light" aria-current="page" routerLink="login-register">Connexion/Inscription</a>
       </li>
+      <li class="nav-item" *ngIf="authService.session" routerLinkActive="active">
+        <a class="nav-link" aria-current="page" routerLink="my-profile">Mon profil</a>
+      </li>
       <li class="nav-item" *ngIf="authService.session">
         <button class="btn btn-outline-light" (click)="logout()">Déconnexion</button>
       </li>

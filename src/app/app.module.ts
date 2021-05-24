@@ -19,7 +19,8 @@ import { IsNotLoggedGuard } from './is-not-logged.guard';
 import { NotAuthorizedComponent } from './not-authorized/not-authorized.component';
 import { ResetMailSentComponent } from './reset-mail-sent/reset-mail-sent.component';
 import { ForgotenPasswordSecondStepComponent } from './forgoten-password-second-step/forgoten-password-second-step.component';
-import { PasswordChangedComponent } from './password-changed/password-changed.component'
+import { PasswordChangedComponent } from './password-changed/password-changed.component';
+import { MyProfileComponent } from './my-profile/my-profile.component'
 
 //bootsrap modules
 
@@ -35,7 +36,8 @@ import { PasswordChangedComponent } from './password-changed/password-changed.co
     NotAuthorizedComponent,
     ResetMailSentComponent,
     ForgotenPasswordSecondStepComponent,
-    PasswordChangedComponent
+    PasswordChangedComponent,
+    MyProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -51,6 +53,7 @@ import { PasswordChangedComponent } from './password-changed/password-changed.co
     RouterModule.forRoot([
       {path: 'home', component: HomeComponent},
       {path: 'news', component: NewsComponent},
+      {path: 'my-profile', component: MyProfileComponent, canActivate: [IsLoggedGuard]},
       {path: 'login-register', component: LoginRegisterComponent,canActivate: [IsNotLoggedGuard]},
       {path: 'not-authorized', component: NotAuthorizedComponent},
       {path: 'reset-mail-sent', component: ResetMailSentComponent},

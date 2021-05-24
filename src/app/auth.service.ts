@@ -26,7 +26,7 @@ export class AuthService {
     }
     else
     {
-      this.updateSession(user, session);
+      this.updateSession(user, session, 'home');
     }
   }
   
@@ -39,10 +39,12 @@ export class AuthService {
     {
       alert(error.message);
     }
-    else
+    else if (user && session)
     {
-      this.updateSession(user, session);
+      this.updateSession(user, session, 'my-profile');
+      return user.id;
     }
+    return null;
   }
   
   async logout() {
@@ -53,7 +55,7 @@ export class AuthService {
     }
     else
     {
-      this.updateSession(null, null);
+      this.updateSession(null, null, 'home');
     }
   }
   
@@ -65,7 +67,6 @@ export class AuthService {
     }
     else
     {
-      console.log(data);
       this.router.navigateByUrl('reset-mail-sent');
     }
   }
@@ -82,9 +83,9 @@ export class AuthService {
     }
   }
   
-  private updateSession(user: any, session: any) {
+  private updateSession(user: any, session: any, redirectTo: string) {
     this.user = user;
     this.session = session;
-    this.router.navigateByUrl('home');
+    this.router.navigateByUrl(redirectTo);
   }
 }

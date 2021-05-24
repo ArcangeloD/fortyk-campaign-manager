@@ -1,7 +1,6 @@
 <div class="row">
   <div class="col-3">Values : {{registrationData.value | json}}<br />
-  ---<br />
-  Username errors : {{registrationData.controls.username.errors | json}}<br />
+  ---<br /><br />
   Email errors : {{registrationData.controls.email.errors | json}}<br />
   Passord errors : {{registrationData.controls.passw.errors | json}}</div>
   <div class="col-6 text-center" *ngIf="mode==1">
@@ -34,18 +33,6 @@
   <div class="col-6 text-center" *ngIf="mode==2">
     <h1>Inscription</h1>
     <form [formGroup]="registrationData" (ngSubmit)="register()">
-      <div class="form-group row">
-        <label for="username" class="form-label">Nom d'utilisateur*</label>
-        <input type="text" class="form-control" id="username" placeholder="Pseudo" formControlName="username" required />
-      </div>
-      <div *ngIf="registrationData.controls.username.errors !== null">
-        <div class="alert alert-danger" role="alert" *ngIf="(registerSubmitted || registrationData.controls.username.touched) && registrationData.controls.username.hasError('required')">
-          Nom d'utilisateur obligatoire !
-        </div>
-        <div class="alert alert-danger" role="alert" *ngIf="(registerSubmitted || registrationData.controls.username.touched) && registrationData.controls.username.hasError('minlength')">
-          Votre nom d'utilisateur doit au moins faire 4 caractère de long !
-        </div>
-      </div>
       <div class="form-group row">
         <label for="registrationEmail" class="form-label">Adresse e-mail*</label>
         <input type="email" class="form-control" id="registrationEmail" placeholder="name@example.com" formControlName="email" required />
