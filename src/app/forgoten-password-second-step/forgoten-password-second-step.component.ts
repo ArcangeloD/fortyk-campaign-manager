@@ -24,14 +24,9 @@ export class ForgotenPasswordSecondStepComponent implements OnInit {
   
   resetSubmitted = false;
 
-  constructor(public authService: AuthService, private route: ActivatedRoute) { }
+  constructor(public authService: AuthService, private route: ActivatedRoute) {}
 
-  ngOnInit(): void {
-    if (!this.authService.session)
-    {
-      window.location.reload();
-    }
-  }
+  ngOnInit(): void {}
 
   sendNewPassword() {
     this.resetSubmitted = true;
