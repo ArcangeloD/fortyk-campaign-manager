@@ -74,18 +74,26 @@ export class DatabaseService {
   }
   
   async updateUsername(id: string, username: string){
-    this.getTime();
-    const {data, error} = await this.supabase
-      .from('profiles')
-      .update({ username: username, updated_at: this.now })
-      .match({ id: id });
-    if (error)
+    const check = await this.checkUsernameAvailable(username);
+    if (check)
     {
-      alert(error.message);
+      this.getTime();
+      const {data, error} = await this.supabase
+        .from('profiles')
+        .update({ username: username, updated_at: this.now })
+        .match({ id: id });
+      if (error)
+      {
+        alert(error.message);
+      }
+      else
+      {
+        alert('nom d\'utilisateur mis à jours !');
+      }
     }
     else
     {
-      alert('nom d\'utilisateur mis à jours !');
+      alert('Il y a déjà un utilisateur avec ce nom !'); 
     }
   }
 }
