@@ -1,15 +1,28 @@
 <div class="row">
-  <div class="col-3"></div>
+  <div class="col-3">Values : {{registrationData.value | json}}<br />
+  ---<br />
+  Username errors : {{registrationData.controls.username.errors | json}}<br />
+  Email errors : {{registrationData.controls.email.errors | json}}<br />
+  Passord errors : {{registrationData.controls.passw.errors | json}}</div>
   <div class="col-6 text-center" *ngIf="mode==1">
     <h1>Connexion</h1>
     <form [formGroup]="loginData" (ngSubmit)="login()">
       <div class="form-group row">
-        <label for="registrationEmail" class="form-label">Adresse e-mail</label>
-        <input type="email" class="form-control" id="registrationEmail" placeholder="name@example.com" formControlName="email" />
+        <label for="registrationEmail" class="form-label">Adresse e-mail*</label>
+        <input type="email" class="form-control" id="registrationEmail" placeholder="name@example.com" formControlName="email" required />
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="(loginSubmitted || loginData.controls.email.touched) && loginData.controls.email.hasError('required')">
+        Adresse e-mail obligatoire !
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="(loginSubmitted || loginData.controls.email.touched) && loginData.controls.email.hasError('email')">
+        Adresse e-mail invalide !
       </div>
       <div class="form-group row">
-        <label for="registrationPassword" class="form-label">Mot de passe</label>
-        <input type="password" class="form-control" id="registrationPassword" placeholder="@Zerty123456" formControlName="passw"/>
+        <label for="registrationPassword" class="form-label">Mot de passe*</label>
+        <input type="password" class="form-control" id="registrationPassword" placeholder="@Zerty123456" formControlName="passw" required />
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="(loginSubmitted || loginData.controls.passw.touched) && loginData.controls.passw.hasError('required')">
+        Mot de passe obligatoire !
       </div>
       <div class="form-group row">
         <button type="submit" class="btn btn-primary form-control">Se connecter</button>
@@ -22,16 +35,49 @@
     <h1>Inscription</h1>
     <form [formGroup]="registrationData" (ngSubmit)="register()">
       <div class="form-group row">
-        <label for="username" class="form-label">Nom d'utilisateur</label>
-        <input type="text" class="form-control" id="username" placeholder="Pseudo" formControlName="username" />
+        <label for="username" class="form-label">Nom d'utilisateur*</label>
+        <input type="text" class="form-control" id="username" placeholder="Pseudo" formControlName="username" required />
+      </div>
+      <div *ngIf="registrationData.controls.username.errors !== null">
+        <div class="alert alert-danger" role="alert" *ngIf="(registerSubmitted || registrationData.controls.username.touched) && registrationData.controls.username.hasError('required')">
+          Nom d'utilisateur obligatoire !
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="(registerSubmitted || registrationData.controls.username.touched) && registrationData.controls.username.hasError('minlength')">
+          Votre nom d'utilisateur doit au moins faire 4 caractère de long !
+        </div>
       </div>
       <div class="form-group row">
-        <label for="registrationEmail" class="form-label">Adresse e-mail</label>
-        <input type="email" class="form-control" id="registrationEmail" placeholder="name@example.com" formControlName="email" />
+        <label for="registrationEmail" class="form-label">Adresse e-mail*</label>
+        <input type="email" class="form-control" id="registrationEmail" placeholder="name@example.com" formControlName="email" required />
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="(registerSubmitted || registrationData.controls.email.touched) && registrationData.controls.email.hasError('required')">
+        Adresse e-mail obligatoire !
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="(registerSubmitted || registrationData.controls.email.touched) && registrationData.controls.email.hasError('email')">
+        Adresse e-mail invalide !
       </div>
       <div class="form-group row">
-        <label for="registrationPassword" class="form-label">Mot de passe</label>
-        <input type="password" class="form-control" id="registrationPassword" placeholder="@Zerty123456" formControlName="passw"/>
+        <label for="registrationPassword" class="form-label">Mot de passe*</label>
+        <input type="password" class="form-control" id="registrationPassword" placeholder="@Zerty123456" formControlName="passw" required />
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="(registerSubmitted || registrationData.controls.passw.touched) && registrationData.controls.passw.hasError('required')">
+        Mot de passe obligatoire !
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="(registerSubmitted || registrationData.controls.passw.touched) && registrationData.controls.passw.hasError('minlength')">
+        Votre mot de passe doit faire au moins 8 caractère de long !
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="(registerSubmitted || registrationData.controls.passw.touched) && registrationData.controls.passw.hasError('maxlength')">
+        Votre mot de passe doit faire au maximum 16 caractère de long !
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="(registerSubmitted || registrationData.controls.passw.touched) && registrationData.controls.passw.hasError('pattern')">
+        Votre mot de passe doit contenir au moins 1 majuscule, 1 minuscule, 1 chiffre et un caractère spécial (-+_!@#$%^&*.,?) !
+      </div>
+      <div class="form-group row">
+        <label for="registrationPasswordConfirmation" class="form-label">Confirmez le mot de passe*</label>
+        <input type="password" class="form-control" id="registrationPasswordConfirmation" placeholder="@Zerty123456" formControlName="passwConfirmation" required />
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="(registerSubmitted || registrationData.controls.passwConfirmation.touched) && registrationData.value.passw != registrationData.value.passwConfirmation">
+        Les deux mots de passe ne correspondent pas !
       </div>
       <div class="form-group row">
         <button type="submit" class="btn btn-primary form-control">S'inscrire</button>
@@ -44,8 +90,14 @@
     <h1>Mot de passe oublié</h1>
     <form [formGroup]="resetData" (ngSubmit)="sendReset()">
       <div class="form-group row">
-        <label for="registrationEmail" class="form-label">Adresse e-mail</label>
-        <input type="email" class="form-control" id="registrationEmail" placeholder="name@example.com" formControlName="email" />
+        <label for="registrationEmail" class="form-label">Adresse e-mail*</label>
+        <input type="email" class="form-control" id="registrationEmail" placeholder="name@example.com" formControlName="email" required />
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="(resetSubmitted || resetData.controls.email.touched) && resetData.controls.email.hasError('required')">
+        Adresse e-mail obligatoire !
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="(resetSubmitted || resetData.controls.email.touched) && resetData.controls.email.hasError('email')">
+        Adresse e-mail invalide !
       </div>
       <div class="form-group row">
         <button type="submit" class="btn btn-primary form-control">Envoyer un mail de récupération</button>

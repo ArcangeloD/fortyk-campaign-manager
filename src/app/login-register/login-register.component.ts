@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login-register',
@@ -11,33 +12,63 @@ export class LoginRegisterComponent implements OnInit {
   mode = 1;
   
   registrationData = new FormGroup({
-    username: new FormControl(''),
-    email: new FormControl(''),
-    passw: new FormControl('')
+    username: new FormControl('', 
+      [
+        Validators.required,
+        Validators.minLength(4)
+      ]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    passw: new FormControl('', 
+      [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(16),
+        Validators.pattern('^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[-+_!@#$%^&*.,?]).{0,}$')
+      ]),
+    passwConfirmation : new FormControl('', Validators.required)
   });
+  
+  registerSubmitted = false; 
   
   loginData = new FormGroup({
-    email: new FormControl(''),
-    passw: new FormControl('')
+    email: new FormControl('',[Validators.required, Validators.email]),
+    passw: new FormControl('', Validators.required)
   });
   
+  loginSubmitted = false;
+  
   resetData = new FormGroup({
-    email: new FormControl('')
+    email: new FormControl('',[Validators.required, Validators.email])
   });
+  
+  resetSubmitted = false;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {}
   
   register() {
-    this.authService.register(this.registrationData.value.email, this.registrationData.value.passw);
+    this.registerSubmitted = true;
+    console.log(this.registrationData.controls.username);
+    if (!(this.registrationData.controls.username.errors! || this.registrationData.controls.email.errors! || this.registrationData.controls.passw.errors! || this.registrationData.controls.passwConfirmation.errors!) && this.registrationData.controls.passw == this.registrationData.controls.passwConfirmation)
+    {
+      //this.authService.register(this.registrationData.value.email, this.registrationData.value.passw);
+    }
   };
   
   login() {
-    this.authService.login(this.loginData.value.email, this.loginData.value.passw);
+    this.loginSubmitted = true;
+    if (!(this.loginData.controls.email.errors! || this.loginData.controls.passw.errors))
+    {
+      this.authService.login(this.loginData.value.email, this.loginData.value.passw);
+    }
   };
   
   sendReset() {
-    this.authService.resetPasswordRequest(this.resetData.value.email);
+    this.resetSubmitted = true;
+    if (!this.resetData.controls.email.errors!)
+    {
+      this.authService.resetPasswordRequest(this.resetData.value.email);
+    }
   };
 }
