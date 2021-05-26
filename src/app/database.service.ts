@@ -19,7 +19,8 @@ export class DatabaseService {
   getTime() {
     this.now = new Date(Date.now()+(1000*60*(-(new Date()).getTimezoneOffset()))).toISOString().replace('Z','')
   }
-  
+
+  //username management
   async checkUsernameAvailable(username: string){
     const {data, error} = await this.supabase
       .from('profiles')
@@ -96,4 +97,6 @@ export class DatabaseService {
       alert('Il y a déjà un utilisateur avec ce nom !'); 
     }
   }
+  
+  //news management
 }
