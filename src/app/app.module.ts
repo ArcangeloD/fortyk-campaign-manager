@@ -24,7 +24,9 @@ import { PasswordChangedComponent } from './password-changed/password-changed.co
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { FooterComponent } from './footer/footer.component';
 import { BoNewsComponent } from './bo-news/bo-news.component';
-import { BackOfficeComponent } from './back-office/back-office.component'
+import { BackOfficeComponent } from './back-office/back-office.component';
+import { BoMenuComponent } from './bo-menu/bo-menu.component';
+import { BoHomeComponent } from './bo-home/bo-home.component'
 
 //bootsrap modules
 
@@ -44,7 +46,9 @@ import { BackOfficeComponent } from './back-office/back-office.component'
     MyProfileComponent,
     FooterComponent,
     BoNewsComponent,
-    BackOfficeComponent
+    BackOfficeComponent,
+    BoMenuComponent,
+    BoHomeComponent
   ],
   imports: [
     BrowserModule,
@@ -58,18 +62,70 @@ import { BackOfficeComponent } from './back-office/back-office.component'
     }),
     NgbModule,
     RouterModule.forRoot([
-      {path: 'home', component: HomeComponent},
-      {path: 'news', component: NewsComponent},
-      {path: 'my-profile', component: MyProfileComponent, canActivate: [IsLoggedGuard]},
-      {path: 'login-register', component: LoginRegisterComponent,canActivate: [IsNotLoggedGuard]},
-      {path: 'back-office', component: BackOfficeComponent, canActivate: [IsLoggedGuard, AsRoleGuard], data: {roles: ['admin', 'moderator']}},
-      {path: 'not-authorized', component: NotAuthorizedComponent},
-      {path: 'not-found', component: NotFoundComponent},
-      {path: 'reset-mail-sent', component: ResetMailSentComponent},
-      {path: 'forgoten-password-second-step', component: ForgotenPasswordSecondStepComponent},
-      {path: 'pasword-changed', component: PasswordChangedComponent},
-      {path: '',   redirectTo: 'home', pathMatch: 'full'},
-      {path: '**', redirectTo: 'not-found', pathMatch: 'full'}
+      {
+        path: 'home',
+        component: HomeComponent
+      },
+      {
+        path: 'news',
+        component: NewsComponent
+      },
+      {
+        path: 'my-profile',
+        component: MyProfileComponent,
+        canActivate: [IsLoggedGuard]
+      },
+      {
+        path: 'login-register',
+        component: LoginRegisterComponent,
+        canActivate: [IsNotLoggedGuard]
+      },
+      {
+        path: 'back-office',
+        component: BackOfficeComponent,
+        canActivate: [IsLoggedGuard, AsRoleGuard],
+        data: {roles: ['admin', 'moderator']},
+        children: [
+          {
+            path: '',
+            component: BoHomeComponent
+          },
+          {
+            path: 'bo-news',
+            component: BoNewsComponent
+          }
+        ]
+      },
+      {
+        path: 'not-authorized',
+        component: NotAuthorizedComponent
+      },
+      {
+        path: 'not-found',
+        component: NotFoundComponent
+      },
+      {
+        path: 'reset-mail-sent',
+        component: ResetMailSentComponent
+      },
+      {
+        path: 'forgoten-password-second-step',
+        component: ForgotenPasswordSecondStepComponent
+      },
+      {
+        path: 'pasword-changed',
+        component: PasswordChangedComponent
+      },
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full'
+      },
+      {
+        path: '**',
+        redirectTo: 'not-found',
+        pathMatch: 'full'
+      }
     ])
   ],
   providers: [IsLoggedGuard, IsNotLoggedGuard, AsRoleGuard],
