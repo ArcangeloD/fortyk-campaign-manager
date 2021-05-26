@@ -1,8 +1,5 @@
 <div class="row">
-  <div class="col-3">Values : {{registrationData.value | json}}<br />
-  ---<br /><br />
-  Email errors : {{registrationData.controls.email.errors | json}}<br />
-  Passord errors : {{registrationData.controls.passw.errors | json}}</div>
+  <div class="col-3"></div>
   <div class="col-6 text-center" *ngIf="mode==1">
     <h1>Connexion</h1>
     <form [formGroup]="loginData" (ngSubmit)="login()">
