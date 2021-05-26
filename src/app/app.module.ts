@@ -20,7 +20,8 @@ import { NotAuthorizedComponent } from './not-authorized/not-authorized.componen
 import { ResetMailSentComponent } from './reset-mail-sent/reset-mail-sent.component';
 import { ForgotenPasswordSecondStepComponent } from './forgoten-password-second-step/forgoten-password-second-step.component';
 import { PasswordChangedComponent } from './password-changed/password-changed.component';
-import { MyProfileComponent } from './my-profile/my-profile.component'
+import { MyProfileComponent } from './my-profile/my-profile.component';
+import { FooterComponent } from './footer/footer.component'
 
 //bootsrap modules
 
@@ -37,7 +38,8 @@ import { MyProfileComponent } from './my-profile/my-profile.component'
     ResetMailSentComponent,
     ForgotenPasswordSecondStepComponent,
     PasswordChangedComponent,
-    MyProfileComponent
+    MyProfileComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
