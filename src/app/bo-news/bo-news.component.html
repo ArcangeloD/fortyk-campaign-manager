@@ -1,1 +1,23 @@
-<p>bo-news works!</p>
+<div class="row">
+  <div class="col-12">
+    <h2>News</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <h3>Nouvelle news</h3>
+    <form [formGroup]="newsData" (ngSubmit)="publishNews()">
+      <div class="form-group row">
+        <label for="newsTitle" class="form-label">Titre</label>
+        <input type="text" class="form-control" id="newsTitle" placeholder="Titre" formControlName="title" required />
+      </div>
+      <div class="form-group row">
+        <label for="newsContent" class="form-label">Contenu</label>
+        <textarea class="form-control" id="newsContent" placeholder="Contenu" formControlName="content" required></textarea>
+      </div>
+      <div class="form-group row">
+        <button type="submit" class="btn btn-primary form-control">Publier la mise à jour</button>
+      </div>
+    </form>
+  </div>
+</div>

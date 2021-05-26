@@ -99,4 +99,29 @@ export class DatabaseService {
   }
   
   //news management
+  async getAllNews()
+  {
+    const {data, error} = await this.supabase
+      .from('news')
+      .select('title, content, published_at, updated_at, profiles(username)');
+    if (error)
+    {
+      alert(error.message);
+    }
+    else
+    {
+      return data;
+    }
+    return null
+  }
+  
+  async insertNews (author_id: string, title: string, content: string){
+    const {data, error} = await this.supabase
+      .from('news')
+      .insert([{author_id: author_id, title: title, content: content}]);
+    if (error)
+    {
+      alert(error.message);
+    }
+  }
 }
