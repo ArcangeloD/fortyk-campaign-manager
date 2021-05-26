@@ -27,6 +27,7 @@ export class MyProfileComponent implements OnInit {
   constructor(private authService: AuthService, private db: DatabaseService) { }
 
   ngOnInit(): void {
+    console.log(this.authService.user);
     this.checkIfProfileExist();
   }
   

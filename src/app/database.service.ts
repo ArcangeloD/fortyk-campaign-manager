@@ -61,7 +61,7 @@ export class DatabaseService {
       .eq('id', id);
     if (error)
     {
-      alert(error);
+      alert(error.message);
     }
     else if (data)
     {

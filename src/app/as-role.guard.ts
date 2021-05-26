@@ -6,21 +6,28 @@ import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class IsLoggedGuard implements CanActivate {
+export class AsRoleGuard implements CanActivate {
   
   constructor (private authService: AuthService, private router: Router) {}
   
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.authService.session)
+    let roles = route.data.roles as Array<string>;
+    if (this.authService.user)
     {
-      return true;
+      if (this.authService.user.user_metadata)
+      {
+        if (this.authService.user.user_metadata.special_role)
+        {
+          if (roles.includes(this.authService.user.user_metadata.special_role))
+          {
+            return true;
+          }
+        }
+      }
     }
-    else
-    {
-      return this.router.parseUrl('not-found');
-    }
+    return this.router.parseUrl('not-found');
   }
   
 }
