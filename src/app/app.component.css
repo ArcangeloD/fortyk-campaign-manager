@@ -1,0 +1,6 @@
+.container-fluid {
+   min-height:100%;
+   position:relative;
+   padding-top: 56px;
+   padding-bottom:56px;
+}

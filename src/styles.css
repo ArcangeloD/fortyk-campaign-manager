@@ -9,17 +9,3 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-
-.container-fluid {
-   min-height:100%;
-   position:relative;
-   padding-bottom:56px;
-}
-
-.footer {
-    position: fixed;
-    height: 56px;
-    bottom: 0px;
-    width: 100%;
-    padding-top: 56px;
-}
