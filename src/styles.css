@@ -13,3 +13,7 @@ body {
 .card-footer {
   font-size: 0.9em;
 }
+
+.bo-menu-card {
+  width: 18rem;
+}
