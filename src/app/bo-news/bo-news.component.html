@@ -4,20 +4,54 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-12">
-    <h3>Nouvelle news</h3>
-    <form [formGroup]="newsData" (ngSubmit)="publishNews()">
-      <div class="form-group row">
-        <label for="newsTitle" class="form-label">Titre</label>
-        <input type="text" class="form-control" id="newsTitle" placeholder="Titre" formControlName="title" required />
-      </div>
-      <div class="form-group row">
-        <label for="newsContent" class="form-label">Contenu</label>
-        <textarea class="form-control" id="newsContent" placeholder="Contenu" formControlName="content" required></textarea>
-      </div>
-      <div class="form-group row">
-        <button type="submit" class="btn btn-primary form-control">Publier la mise à jour</button>
-      </div>
-    </form>
+  <div class="col-1"></div>
+  <div class="col-10">
+    <ul ngbNav #nav="ngbNav" class="nav-tabs">
+      <li ngbNavItem>
+        <a ngbNavLink><h3>Nouvelle news</h3></a>
+        <ng-template ngbNavContent>
+          <form [formGroup]="newsData" (ngSubmit)="publishNews()">
+            <div class="form-group row">
+              <label for="newsTitle" class="form-label">Titre</label>
+              <input type="text" class="form-control" id="newsTitle" placeholder="Titre" formControlName="title" required />
+            </div>
+            <div class="form-group row">
+              <label for="newsContent" class="form-label">Contenu</label>
+              <textarea class="form-control" id="newsContent" placeholder="Contenu" formControlName="content" required></textarea>
+            </div>
+            <div class="form-group row">
+              <button type="submit" class="btn btn-primary form-control">Publier la news</button>
+            </div>
+          </form>
+        </ng-template>
+      </li>
+      <li ngbNavItem>
+        <a ngbNavLink><h3>Mettre à jour une news</h3></a>
+        <ng-template ngbNavContent>
+          <form [formGroup]="filterData" (ngSubmit)="filter()">
+            <div class="form-group row">
+              <label for="filterAuthor" class="form-label">Auteur</label>
+              <input type="text" class="form-control" id="filterTitle" placeholder="Auteur" formControlName="author" />
+            </div>
+            <div class="form-group row">
+              <label for="filterTitle" class="form-label">Titre</label>
+              <input type="text" class="form-control" id="filterTitle" placeholder="Titre" formControlName="title" />
+            </div>
+            <div class="form-group row">
+              <label for="filterPublishedBefore" class="form-label">Publiée au plus tard le : </label>
+              <input type="date" class="form-control" id="filterPublishedBefore" placeholder="01/01/2021" formControlName="publishedBefore" />
+            </div>
+            <div class="form-group row">
+              <label for="filterPublishedAfter" class="form-label">Publiée au plus tôt le : </label>
+              <input type="date" class="form-control" id="filterPublishedAfter" placeholder="01/01/2021" formControlName="publishedAfter" />
+            </div>
+            <div class="form-group row">
+              <button type="submit" class="btn btn-primary form-control">Filtrer</button>
+            </div>
+          </form>
+        </ng-template>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="nav"></div>
   </div>
 </div>

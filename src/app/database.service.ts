@@ -103,7 +103,8 @@ export class DatabaseService {
   {
     const {data, error} = await this.supabase
       .from('news')
-      .select('title, content, published_at, updated_at, profiles(username)');
+      .select('title, content, published_at, updated_at, profiles(username)')
+      .order('published_at', { ascending: false });
     if (error)
     {
       alert(error.message);
@@ -113,6 +114,14 @@ export class DatabaseService {
       return data;
     }
     return null
+  }
+  
+  async getNewsByFilter(filter: any) {
+    const {data, error} = await this.supabase
+      .from('news')
+      .select('title, content, published_at, updated_at, profiles(username)')
+      .match(filter)
+      .order('published_at', { ascending: false });
   }
   
   async insertNews (author_id: string, title: string, content: string){
