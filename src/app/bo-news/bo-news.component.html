@@ -28,27 +28,49 @@
       <li ngbNavItem>
         <a ngbNavLink><h3>Mettre à jour une news</h3></a>
         <ng-template ngbNavContent>
-          <form [formGroup]="filterData" (ngSubmit)="filter()">
-            <div class="form-group row">
-              <label for="filterAuthor" class="form-label">Auteur</label>
-              <input type="text" class="form-control" id="filterTitle" placeholder="Auteur" formControlName="author" />
+          <form>
+            <label class="form-control">Choisissez un type de filtre {{filterMode}}</label>
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+              <label class="btn" for="filterModeRadio1" [ngClass]="{'btn-primary':filterMode==1, 'btn-outline-primary': filterMode!=1}">
+                <input type="radio" class="btn-check" name="filterModeRadio" id="filterModeRadio1" autocomplete="off" [(ngModel)]="filterMode" [value]="1"/>
+                Auteur
+              </label>
+              <label class="btn" for="filterModeRadio2" [ngClass]="{'btn-primary':filterMode==2, 'btn-outline-primary': filterMode!=2}">
+                <input type="radio" class="btn-check" name="filterModeRadio" id="filterModeRadio2" autocomplete="off" [(ngModel)]="filterMode" [value]="2" />
+                Titre
+              </label>
+              <label class="btn" for="filterModeRadio3" [ngClass]="{'btn-primary':filterMode==3, 'btn-outline-primary': filterMode!=3}">
+                <input type="radio" class="btn-check" name="filterModeRadio" id="filterModeRadio3" autocomplete="off" [(ngModel)]="filterMode" [value]="3" />
+                Date de publication
+              </label>
             </div>
-            <div class="form-group row">
+          </form>
+          <form [formGroup]="filterData" (ngSubmit)="search()">
+            <div class="form-group row" *ngIf="filterMode==1">
+              <label for="filterAuthor" class="form-label">Auteur</label>
+              <input type="text" class="form-control" id="filterAuthor" placeholder="Auteur" formControlName="author" />
+            </div>
+            <div class="form-group row" *ngIf="filterMode==2">
               <label for="filterTitle" class="form-label">Titre</label>
               <input type="text" class="form-control" id="filterTitle" placeholder="Titre" formControlName="title" />
             </div>
-            <div class="form-group row">
-              <label for="filterPublishedBefore" class="form-label">Publiée au plus tard le : </label>
-              <input type="date" class="form-control" id="filterPublishedBefore" placeholder="01/01/2021" formControlName="publishedBefore" />
-            </div>
-            <div class="form-group row">
-              <label for="filterPublishedAfter" class="form-label">Publiée au plus tôt le : </label>
+            <div class="form-group row" *ngIf="filterMode==3">
+              <label for="filterPublishedAfter" class="form-label">Publiée entre le : </label>
               <input type="date" class="form-control" id="filterPublishedAfter" placeholder="01/01/2021" formControlName="publishedAfter" />
             </div>
-            <div class="form-group row">
-              <button type="submit" class="btn btn-primary form-control">Filtrer</button>
+            <div class="form-group row" *ngIf="filterMode==3">
+              <label for="filterPublishedBefore" class="form-label">Et le : </label>
+              <input type="date" class="form-control" id="filterPublishedBefore" placeholder="01/01/2021" formControlName="publishedBefore" />
+            </div>
+            <div class="form-group row" *ngIf="filterMode > 0">
+              <button type="submit" class="btn btn-primary form-control">Chercher</button>
             </div>
           </form>
+          <ul>
+            <li *ngFor="let news of newsList; let i = index">
+              {{i}} {{news | json}}
+            </li>
+          </ul>
         </ng-template>
       </li>
     </ul>

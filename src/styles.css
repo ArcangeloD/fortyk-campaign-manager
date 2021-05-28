@@ -17,3 +17,7 @@ body {
 .bo-menu-card {
   width: 18rem;
 }
+
+label.btn input.btn-check {
+  display: none;
+}

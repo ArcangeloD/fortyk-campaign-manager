@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormsModule, FormGroup, FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { DatabaseService } from '../database.service';
@@ -19,36 +19,47 @@ export class BoNewsComponent implements OnInit {
   });
   
   filterData = new FormGroup({
+    author: new FormControl(''),
     title: new FormControl(''),
     publishedBefore: new FormControl(''),
     publishedAfter: new FormControl(''),
-    author: new FormControl('')
   });
+  
+  filterMode = 0;
 
   constructor(private authService: AuthService, private db: DatabaseService) { }
 
-  ngOnInit(): void {
-    this.db.getAllNews().then(data => {
-      this.newsList = data;
-    });
-  }
+  ngOnInit(): void {}
   
   publishNews() {
-    if (this.authService.user)
+    if (this.authService.user && this.newsData.value.title != '' && this.newsData.value.content != '')
     {
       this.db.insertNews(this.authService.user.id, this.newsData.value.title, this.newsData.value.content);
     }
-  }
-  
-  filter(){
-    if (this.filterData.value.title && this.filterData.value.publishedBefore && this.filterData.value.publishedAfter && this.filterData.value.author)
-    {
-      alert('full filter');
-    }
     else
     {
-      alert('no filter');
+      alert('Le titre et le contenu sont obligatoire !');
     }
   }
-
+  
+  search() {
+    switch (this.filterMode)
+    {
+      case 1:
+      {
+        break;
+      }
+      case 2:
+      {
+        this.db.getNewsByTitle(this.filterData.value.title).then(data =>{
+          this.newsList = data;
+        });
+        break;
+      }
+      case 3:
+      {
+        break;
+      }
+    }
+  }
 }

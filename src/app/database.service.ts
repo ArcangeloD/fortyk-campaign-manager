@@ -116,14 +116,6 @@ export class DatabaseService {
     return null
   }
   
-  async getNewsByFilter(filter: any) {
-    const {data, error} = await this.supabase
-      .from('news')
-      .select('title, content, published_at, updated_at, profiles(username)')
-      .match(filter)
-      .order('published_at', { ascending: false });
-  }
-  
   async insertNews (author_id: string, title: string, content: string){
     const {data, error} = await this.supabase
       .from('news')
@@ -132,5 +124,30 @@ export class DatabaseService {
     {
       alert(error.message);
     }
+  }
+  
+  async getNewsByTitle (filter: string) {
+    const {data, error} = await await this.supabase
+      .from('news')
+      .select('title, content, published_at, updated_at, profiles(username)')
+      .ilike('title', '%'+filter+'%')
+      .order('published_at', { ascending: false })
+    if (error)
+    {
+      alert(error.message)
+    }
+    else
+    {
+      return data;
+    }
+    return null;
+  }
+  
+  async updateNews() {
+    
+  }
+  
+  async deleteNews() {
+    
   }
 }
