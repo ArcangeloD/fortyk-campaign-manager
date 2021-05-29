@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DatabaseService } from '../database.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  homeText = '';
+
+  constructor(private db: DatabaseService) { }
 
   ngOnInit(): void {
+    this.db.getHomePageText().then(data => {
+      this.homeText = data;
+    });
   }
 
 }

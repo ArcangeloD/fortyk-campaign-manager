@@ -19,8 +19,41 @@ export class DatabaseService {
   getTime() {
     this.now = new Date(Date.now()+(1000*60*(-(new Date()).getTimezoneOffset()))).toISOString().replace('Z','')
   }
+  
+  //home page
+  async getHomePageText(){
+    const {data, error} = await this.supabase
+      .from('site_infos')
+      .select('home_page_html');
+    if (error)
+    {
+      alert(error.message);
+    }
+    else if (data)
+    {
+      return data[0]['home_page_html'];
+    }
+    return null;
+  }
 
   //username management
+  async getUsernameById(id: string){
+    const {data, error} = await this.supabase
+      .from('profiles')
+      .select('username')
+      .eq('id', id)
+      .single();
+    if (error)
+    {
+      alert(error.message);
+    }
+    else if (data)
+    {
+      return data.username;
+    }
+    return null;
+  }
+  
   async checkUsernameAvailable(username: string){
     const {data, error} = await this.supabase
       .from('profiles')
@@ -99,12 +132,34 @@ export class DatabaseService {
   }
   
   //news management
+  async newsSubscription() {
+    return this.supabase.from('news');
+  }
+  
   async getAllNews()
   {
     const {data, error} = await this.supabase
       .from('news')
-      .select('title, content, published_at, updated_at, profiles(username)')
+      .select('id, title, content, published_at, updated_at, profiles(username)')
       .order('published_at', { ascending: false });
+    if (error)
+    {
+      alert(error.message);
+    }
+    else
+    {
+      return data;
+    }
+    return null
+  }
+  
+  async getNewsRange(min: number, max: number)
+  {
+    const {data, error} = await this.supabase
+      .from('news')
+      .select('id, title, content, published_at, updated_at, profiles(username)')
+      .order('published_at', { ascending: false })
+      .range(min,max);
     if (error)
     {
       alert(error.message);
