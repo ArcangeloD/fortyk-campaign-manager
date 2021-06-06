@@ -26,6 +26,8 @@ export class BoNewsComponent implements OnInit {
   });
   
   filterMode = 0;
+  selectedNews = 0;
+  displayUpdateForm = false;
 
   constructor(private authService: AuthService, private db: DatabaseService) { }
 
@@ -42,11 +44,41 @@ export class BoNewsComponent implements OnInit {
     }
   }
   
+  updateNews () {
+    if (this.authService.user && this.newsData.value.title != '' && this.newsData.value.content != '')
+    {
+      this.db.updateNews(this.newsList[this.selectedNews].id, this.newsData.value.title, this.newsData.value.content);
+    }
+    else
+    {
+      alert('Le titre et le contenu sont obligatoire !');
+    }
+  }
+  
+  deleteNews (){
+    this.db.deleteNews(this.newsList[this.selectedNews].id);
+    this.search();
+    this.displayUpdateForm = false;
+  }
+  
+  selectNews(selected: any) {
+    if (!this.displayUpdateForm)
+    {
+      this.displayUpdateForm = true;
+    }
+    this.selectedNews = selected;
+    this.newsData.controls['title'].setValue(this.newsList[this.selectedNews].title);
+    this.newsData.controls['content'].setValue(this.newsList[this.selectedNews].content);
+  }
+  
   search() {
     switch (this.filterMode)
     {
       case 1:
       {
+        this.db.getNewsByAuthor(this.filterData.value.author).then(data =>{
+          this.newsList = data;
+        });
         break;
       }
       case 2:
@@ -58,6 +90,9 @@ export class BoNewsComponent implements OnInit {
       }
       case 3:
       {
+        this.db.getNewsByDate(this.filterData.value.publishedAfter, this.filterData.value.publishedBefore).then(data =>{
+          this.newsList = data;
+        });
         break;
       }
     }

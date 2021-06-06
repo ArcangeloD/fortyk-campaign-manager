@@ -81,7 +81,7 @@ export class DatabaseService {
     this.getTime();
     const {data, error} = await this.supabase
       .from('profiles')
-      .insert([{ id: id, username: username, updated_at: this.now }]);
+      .insert([{ id: id, username: username }]);
     if (error)
     {
       alert(error.message);
@@ -111,10 +111,9 @@ export class DatabaseService {
     const check = await this.checkUsernameAvailable(username);
     if (check)
     {
-      this.getTime();
       const {data, error} = await this.supabase
         .from('profiles')
-        .update({ username: username, updated_at: this.now })
+        .update({ username: username })
         .match({ id: id });
       if (error)
       {
@@ -182,9 +181,9 @@ export class DatabaseService {
   }
   
   async getNewsByTitle (filter: string) {
-    const {data, error} = await await this.supabase
+    const {data, error} = await this.supabase
       .from('news')
-      .select('title, content, published_at, updated_at, profiles(username)')
+      .select('id, title, content, published_at, updated_at, profiles(username)')
       .ilike('title', '%'+filter+'%')
       .order('published_at', { ascending: false })
     if (error)
@@ -198,11 +197,75 @@ export class DatabaseService {
     return null;
   }
   
-  async updateNews() {
-    
+  async getNewsByDate (from: string, to: string)
+  {
+    if (from > to)
+    {
+      var tmp = from;
+      from = to;
+      to = tmp;
+    }
+    const {data, error} = await this.supabase
+      .from('news')
+      .select('id, title, content, published_at, updated_at, profiles(username)')
+      .gte('published_at', from)
+      .lte('published_at', to)
+      .order('published_at', { ascending: false });
+    if (error)
+    {
+      alert(error.message);
+    }
+    else
+    {
+      return data
+    }
+    return null;
   }
   
-  async deleteNews() {
-    
+  async getNewsByAuthor (filter: string) {
+    const {data, error} = await this.supabase
+      .from('profiles')
+      .select('news(id, title, content, published_at, updated_at, profiles(username))')
+      .eq('username', filter)
+      .single();
+    if (error)
+    {
+      alert(error.message);
+    }
+    else if(data)
+    {
+      return data['news'];
+    }
+    return null;
+  }
+  
+  async updateNews(id: string, title: string, content: string) {
+    const {data, error} = await this.supabase
+      .from('news')
+      .update({ title: title, content: content })
+      .match({ id: id });
+    if (error)
+    {
+      alert(error.message);
+    }
+    else
+    {
+      alert('News mise à jours !');
+    }
+  }
+  
+  async deleteNews(id: string) {
+    const {data, error} = await this.supabase
+      .from('news')
+      .delete()
+      .match({ id: id });
+    if (error)
+    {
+      alert(error.message);
+    }
+    else
+    {
+      alert('News supprimée !');
+    }
   }
 }
