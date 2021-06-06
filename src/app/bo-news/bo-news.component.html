@@ -29,7 +29,7 @@
         <a ngbNavLink><h3>Mettre à jour une news</h3></a>
         <ng-template ngbNavContent>
           <form>
-            <label class="form-label">Choisissez un type de filtre</label>
+            <label class="form-label">Choisissez un type de filtre : </label>
             <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
               <label class="btn" for="filterModeRadio1" [ngClass]="{'btn-primary':filterMode==1, 'btn-outline-primary': filterMode!=1}">
                 <input type="radio" class="btn-check" name="filterModeRadio" id="filterModeRadio1" autocomplete="off" [(ngModel)]="filterMode" [value]="1"/>
@@ -89,7 +89,7 @@
         <a ngbNavLink><h3>Supprimer une news</h3></a>
         <ng-template ngbNavContent>
           <form>
-            <label class="form-label">Choisissez un type de filtre</label>
+            <label class="form-label">Choisissez un type de filtre : </label>
             <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
               <label class="btn" for="filterModeRadio1" [ngClass]="{'btn-primary':filterMode==1, 'btn-outline-primary': filterMode!=1}">
                 <input type="radio" class="btn-check" name="filterModeRadio" id="filterModeRadio1" autocomplete="off" [(ngModel)]="filterMode" [value]="1"/>
